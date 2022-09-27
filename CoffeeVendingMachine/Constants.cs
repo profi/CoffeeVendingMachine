@@ -2,6 +2,6 @@
 {
     public static class Constants
     {
-        public static string TitleSeparator => "-------------------------------";
+        public static string Separator => "-------------------------------";
     }
 }

@@ -1,0 +1,27 @@
+{
+  "ExternalCoffeesList": [
+    {
+      "SelectionId": 1,
+      "Price": 5,
+      "Description": "Vienna"
+    },
+    {
+      "SelectionId": 2,
+      "Price": 5,
+      "Description": "Thai/Vietnamese Iced Coffee"
+    },
+    {
+      "SelectionId": 3,
+      "Price": 5,
+      "Description": "New Orleans Chicory Blend"
+    },
+    {
+      "SelectionId": 4,
+      "Price": 5,
+      "Description": "Eiskaffee"
+    }
+  ]
+}
+
+
+

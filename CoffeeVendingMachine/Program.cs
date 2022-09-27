@@ -8,12 +8,12 @@ using System.Linq;
 
 namespace CoffeeShopMenu.ConsoleUI
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
             Console.Title = "Coffee Vending Menu";
-
+            var program = new Program();
             ServiceLocator.Setup();
             var orderService = ServiceLocator.GetService<IOrderService>();
             var orderScreen = new OrderScreen();
@@ -32,9 +32,11 @@ namespace CoffeeShopMenu.ConsoleUI
                         }
                         while (!IsOrderComplete());
 
-                        orderScreen.DisplayOrder();
+                        var totalPrice = orderScreen.DisplayOrder();
 
-                        if (ExitProgram())
+                var IsOrderFinished = program.InsertCoin(totalPrice);
+
+                        if (IsOrderFinished)
                         {
                             break;
                         }
@@ -44,7 +46,7 @@ namespace CoffeeShopMenu.ConsoleUI
             }
         
 
-        private static void AddOrder(MenuTypeEnum menu)
+        public static void AddOrder(MenuTypeEnum menu)
         {
 
             var mainMenuScreen = new MainMenuScreen();
@@ -83,7 +85,7 @@ namespace CoffeeShopMenu.ConsoleUI
             orderService.AddToOrder(coffee);
         }
 
-        private static bool IsOrderComplete()
+        public static bool IsOrderComplete()
         {
             Console.WriteLine("\nAdd another coffee to your order? Y/N");
 
@@ -92,12 +94,21 @@ namespace CoffeeShopMenu.ConsoleUI
             return isOrderComplete;
         }
 
-        private static bool ExitProgram()
+        public  bool InsertCoin(decimal totalValue)
         {
-            Console.WriteLine("\n0 - Exit program");
-            Console.WriteLine("1 - Add another order");
+            Console.WriteLine("Insert Credit");
 
-            return Console.ReadLine().ToString() == "0";
+            var currencyValue  = Console.ReadLine();
+
+            while(Convert.ToDecimal(currencyValue) < totalValue)
+            {
+                Console.WriteLine("Not enoug credit please insert more " + (totalValue - Convert.ToDecimal(currencyValue)));
+                currencyValue = currencyValue + Console.ReadLine();
+            }
+
+            Console.WriteLine("Please take your order....");
+
+            return true;
         }
     }
 }

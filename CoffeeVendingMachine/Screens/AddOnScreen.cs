@@ -63,7 +63,7 @@ namespace CoffeeShopMenu.ConsoleUI.Screens
 
             var builder = new StringBuilder();
             builder.AppendLine("ADD ON MENU");
-            builder.AppendLine(Constants.TitleSeparator);
+            builder.AppendLine(Constants.Separator);
             builder.AppendLine();
 
             foreach (var option in addOnOptions)
@@ -75,7 +75,7 @@ namespace CoffeeShopMenu.ConsoleUI.Screens
             builder.AppendLine($"0 - Add to Order");
 
             builder.AppendLine();
-            builder.Append("Add on choice: ");
+            builder.Append("Add on - choice: ");
 
             Console.Write(builder);
         }

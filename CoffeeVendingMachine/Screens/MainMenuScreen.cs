@@ -6,6 +6,8 @@ using CoffeeShopMenu.Application.Services;
 using System.Collections.Generic;
 using CoffeeShopMenu.Domain.Entities.Dto;
 using CoffeeShopMenu.Domain.Entities.Coffee;
+using System.IO;
+using System.Text.Json;
 
 namespace CoffeeShopMenu.ConsoleUI.Screens
 {
@@ -111,7 +113,7 @@ namespace CoffeeShopMenu.ConsoleUI.Screens
 
             var builder = new StringBuilder();
             builder.AppendLine("MAIN MENU");
-            builder.AppendLine(Constants.TitleSeparator);
+            builder.AppendLine(Constants.Separator);
             builder.AppendLine();
 
             coffeeOptions.Select(c => c).ToList().ForEach(c => builder.AppendLine(c.ToString()));
@@ -123,16 +125,14 @@ namespace CoffeeShopMenu.ConsoleUI.Screens
 
         private List<ExternalCoffeeDto>  DisplayExternalMenu()
         {
-            List<ExternalCoffeeDto> externalCoffeelist = new List<ExternalCoffeeDto>()
-            {
-                { new ExternalCoffeeDto { Price = 10, Description = "Fluffy", SelectionId = 1 }},
-                { new ExternalCoffeeDto { Price = 9, Description = "Fluffy1" , SelectionId = 2 }},
-                { new ExternalCoffeeDto { Price = 8, Description = "Fluffy2", SelectionId = 3 }},
-            };
+
+            string externalJsonFilePath = @"C:\Users\Kliment Petreski\source\repos\CVMDamilah\CoffeeVendingMachine.Domain\Files\\ExternalCoffees.json";
+
+            var externalCoffeelistDto =JsonSerializer.Deserialize<ExternalCoffeesListDto>(File.ReadAllText(externalJsonFilePath));
 
             List<ICoffeeBase> coffeeOptions = new List<ICoffeeBase>();
 
-            foreach (var externalCoffee in externalCoffeelist)
+            foreach (var externalCoffee in externalCoffeelistDto.ExternalCoffeesList)
             {
                 coffeeOptions.Add(coffeeService.CreateExternalCoffee(externalCoffee.Description, externalCoffee.Price, externalCoffee.SelectionId));
             }
@@ -141,7 +141,7 @@ namespace CoffeeShopMenu.ConsoleUI.Screens
 
             var builder = new StringBuilder();
             builder.AppendLine("EXTERNAL MENU");
-            builder.AppendLine(Constants.TitleSeparator);
+            builder.AppendLine(Constants.Separator);
             builder.AppendLine();
 
             coffeeOptions.Select(c => c).ToList().ForEach(c => builder.AppendLine(c.ToString()));
@@ -149,7 +149,7 @@ namespace CoffeeShopMenu.ConsoleUI.Screens
             builder.AppendLine();
             builder.Append("Choose your coffee: ");
             Console.Write(builder);
-            return externalCoffeelist;
+            return externalCoffeelistDto.ExternalCoffeesList;
         }
 
         private void DisplayDeafultMenu()
@@ -165,7 +165,7 @@ namespace CoffeeShopMenu.ConsoleUI.Screens
 
             var builder = new StringBuilder();
             builder.AppendLine("DEFAULT MENU");
-            builder.AppendLine(Constants.TitleSeparator);
+            builder.AppendLine(Constants.Separator);
             builder.AppendLine();
 
             coffeeOptions.Select(c => c).ToList().ForEach(c => builder.AppendLine(c.Key.ToString() + " - " + c.Value.ToString()));

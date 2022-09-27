@@ -13,13 +13,13 @@ namespace CoffeeShopMenu.ConsoleUI.Screens
             orderService = ServiceLocator.GetService<IOrderService>();
         }
 
-        public void DisplayOrder()
+        public decimal DisplayOrder()
         {
             Console.Clear();
 
             var builder = new StringBuilder();
             builder.AppendLine("Please Review Your Order");
-            builder.AppendLine(Constants.TitleSeparator);
+            builder.AppendLine(Constants.Separator);
             builder.AppendLine();
 
             var totalPrice = 0M;
@@ -36,11 +36,13 @@ namespace CoffeeShopMenu.ConsoleUI.Screens
                 totalPrice += price;
             }
 
-            builder.AppendLine($"Total Order Price: {totalPrice.ToString("C")}");
+            builder.AppendLine($"Please Insert: {totalPrice.ToString("C")}");
             builder.AppendLine();
-            builder.AppendLine(Constants.TitleSeparator);
+            builder.AppendLine(Constants.Separator);
 
             Console.Write(builder);
+
+            return totalPrice;
         }
 
     }

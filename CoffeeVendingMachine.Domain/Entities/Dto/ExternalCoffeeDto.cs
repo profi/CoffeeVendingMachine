@@ -10,4 +10,9 @@ namespace CoffeeShopMenu.Domain.Entities.Dto
         public decimal Price { get; set; }
         public string Description { get; set; }
     }
+
+    public class ExternalCoffeesListDto
+    {
+        public List<ExternalCoffeeDto> ExternalCoffeesList { get; set; }
+    }
 }
